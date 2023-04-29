@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Inter } from 'next/font/google'
 import DecadeSelector from '../../components/decadeSelector'
 import { getDataByDecade, getDecades, getAggDataByAssetName } from './api';
 import state from '../../state';
@@ -8,7 +7,6 @@ import Map from '../../components/mapContainer';
 import LineChart from '../../components/lineGraph';
 import DataTable from '../../components/dataTable';
 import { useSnapshot } from 'valtio';
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
