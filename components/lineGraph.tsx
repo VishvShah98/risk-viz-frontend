@@ -1,11 +1,13 @@
 import Chart from 'chart.js/auto';
 import state from '../state';
 import { useRef, useEffect, useState, useMemo } from 'react';
+import { useSnapshot } from 'valtio';
+import { ChartOptions } from 'chart.js';
 
 const LineChart = () => {
   const labels = state.graphData[0].data.map((item: any) => item.Year);
-//console.log('sg:',state.graphData);
-
+  //console.log('sg:',state.graphData);
+  const snapshot = useSnapshot(state);
   const datasets = state.graphData.map((item: any) => {
     return {
       label: item._id['Business Category'],
@@ -31,23 +33,38 @@ const LineChart = () => {
 
   // console.log('Data: ',data)
 
-  const options = useMemo(() => ({
+  const options: ChartOptions<'line'> = useMemo(() => ({
 
     scales: {
       x: {
-        disply: true,
+        display: true,
         title: {
           display: true,
-          text: 'Year'
+          text: 'Year',
+          align: 'center',
+          font: {
+            weight: 'bolder',
+            size: 12,
+          },
+          padding: 5,
+          fullSize: true,
         },
       },
       y: {
         display: true,
         title: {
           display: true,
-          text: 'Average Risk Rating'
+          text: 'Risk Rating',
+          align: 'center',
+          font: {
+            weight: 'bolder',
+            size: 12,
+          },
+          padding: 5,
+          fullSize: true,
         }
-    }},
+      }
+    },
     plugins: {
       tooltip: {
         boxWidth: 1,
@@ -75,7 +92,7 @@ const LineChart = () => {
               const riskFactorsAvgString = `${firstKey}: ${firstValue};${restOfRiskFactorsAvgString}`;
 
               //console.log('riskFactorsAvgString: ', riskFactorsAvgString);
-              return `Risk Factors Avg: ${riskFactorsAvgString}`;
+              return `Risk Factors: ${riskFactorsAvgString}`;
             } else {
               return '';
             }
@@ -83,16 +100,34 @@ const LineChart = () => {
         },
 
       },
+      title: {
+        display: true,
+        text: `Asset Name: ${snapshot.graphData[0]._id['Asset Name']}`,
+        color: 'black',
+        position: 'top',
+        align: 'center',
+        font: {
+          weight: 'bolder',
+          size: 15,
+        },
+        padding: 5,
+        fullSize: true,
+      },
+
+      legend: {
+        display: false, // set display to false to hide the legend
+      },
+
     },
     backgroundColor: 'white',
-  }), []);;
+  }), [snapshot.graphData]);;
 
 
   const canvasRef = useRef(null);
 
   //const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
-    if(!canvasRef.current) return console.log('no canvas ref' );
+    if (!canvasRef.current) return console.log('no canvas ref');
     const chart = new Chart(canvasRef.current, {
       type: 'line',
       data: data,
@@ -116,20 +151,20 @@ const LineChart = () => {
   });
 
   return (
-    <div style={{ height: '100%' }} >
-      <h2 style={{ marginBottom: '20px' }}>Asset Name: {state.graphData[0]._id['Asset Name']}</h2>
-      <div style={{ marginBottom: '40px' }}>
-        <label htmlFor="category-select" style={{ marginRight: '10px' }}>Select a Business Category:  </label>
-        <select id="category-select" style={{ color: 'black' }} value={selectedCategory} onChange={handleCategoryChange}>
-          {categoryOptions}
-        </select>
-      </div>
+
+    <div style={{ position: 'relative' }}>
+      <select id="category-select" style={{ color: 'white', position: 'absolute', background: 'darkgrey', top: '0vh', right: '0vw' }} value={selectedCategory} onChange={handleCategoryChange}>
+        {categoryOptions}
+      </select>
       <canvas ref={canvasRef} style={{
-        backgroundColor: 'white', borderRadius: '10px',
-        boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'white', borderRadius: '10px'
+        , boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.5)',
+        zIndex: 1,
       }}></canvas>
     </div>
   );
 };
+
+
 
 export default LineChart;

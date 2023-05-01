@@ -6,6 +6,8 @@ const state = proxy({
   data: []as DataPoint[],
   graphData: []as GraphDataPoint[],
   tabelFilter: '',
+  showData: false,
+  dataLoaded: false,
 });
 
 export default state;

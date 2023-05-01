@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { DataGrid, GridColDef, GridFilterModel } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { useSnapshot } from 'valtio';
@@ -7,14 +7,13 @@ import state from '../state';
 
 function DataTable() {
   const [rows, setRows] = useState<Array<any>>([]);
-  const [assetNameFilterValue, setAssetNameFilterValue] = useState<string>('');
   const { palette } = useTheme();
   const snapshot = useSnapshot(state);
 
   function formatRiskFactors(riskFactorsStr: string): string {
     const riskFactors = JSON.parse(riskFactorsStr);
     const formattedRiskFactors = Object.entries(riskFactors)
-      .map(([key, value]) => `${key}: ${value}`)
+      .map(([key, value]) => `${key}: ${Number(value).toFixed(2)}`)
       .join(', ');
 
     return formattedRiskFactors;
@@ -32,12 +31,6 @@ function DataTable() {
     setRows(dataRows);
   }, [snapshot.data]);
 
-  // useEffect(() => {
-  //   state.graphData[0]['Asset Name']
-  //   setAssetNameFilterValue(state.tabelFilter);
-  //   console.log('table',state.graphData[0]['Asset Name']);
-  // }, [snapshot.graphData]);
-
   const columns: GridColDef[] = [
     { field: 'assetName', headerName: 'Asset Name', width: 220 },
     { field: 'businessCategory', headerName: 'Business Category', width: 155 },
@@ -50,7 +43,7 @@ function DataTable() {
   return (
     <Box className="data-table" sx={{
       height: 400,
-      borderRadius: "1rem",
+      
       boxShadow: "0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, .8)",
       '.MuiDataGrid-columnHeaderTitle': { fontSize: 15, fontWeight: 'bolder !important' },
 
@@ -63,10 +56,10 @@ function DataTable() {
 
     }} >
       <DataGrid
-        sx={{ backgroundColor: 'white', color: 'black' }}
+        sx={{ backgroundColor: 'white', color: 'black', borderRadius: "1rem"}}
         rows={rows}
         columns={columns}
-        columnHeaderHeight={80}
+        columnHeaderHeight={55}
         rowHeight={50}
         filterModel={{
           items: [

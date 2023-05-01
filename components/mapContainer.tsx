@@ -28,7 +28,7 @@ const Map = () => {
       mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
       const mapInstance = new mapboxgl.Map({
         container: 'map-container',
-        style: 'mapbox://styles/mapbox/dark-v11',
+        style: 'mapbox://styles/mapbox/streets-v12',
         center: [-95.7129, 37.0902],
         zoom: 2,
         dragPan: true,
@@ -37,7 +37,7 @@ const Map = () => {
       mapInstance.addControl(new mapboxgl.NavigationControl());
 
       mapInstance.on('load', () => {
-       // console.log('Map loaded');
+        // console.log('Map loaded');
         setMap(mapInstance);
       });
     } else if (map) {
@@ -50,7 +50,7 @@ const Map = () => {
   useEffect(() => {
     if (map && snapshot.data) {
 
-//console.log(snapshot.data);
+      //console.log(snapshot.data);
 
       // create a new GeoJSON object from the data
       const geojson: GeoJSON.FeatureCollection = {
@@ -212,7 +212,7 @@ const Map = () => {
 
           updateGraph(assetName);
 
-
+          //state.showData = true;
 
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -222,7 +222,7 @@ const Map = () => {
           new mapboxgl.Popup()
             .setLngLat(coordinates as mapboxgl.LngLatLike)
             .setHTML(
-              `<span class="text-black">Asset Name: ${assetName}<br>Business Category: ${businessCategory}<br>Risk Rating: ${riskRating}</span>`
+              `<span class="text-black" style={{color:'black'}}>Asset Name: ${assetName}<br>Business Category: ${businessCategory}</span>`
             )
             .addTo(map);
         });
@@ -247,10 +247,20 @@ const Map = () => {
     }
   }, [map, snapshot.data]);
 
-  return <Box id="map-container" style={{ width: '100%', height: '100%' }} sx={{
-    borderRadius: "1rem",
-    boxShadow: "0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, .8)",
-  }} />;
+  return (
+  
+  <div style={{ height: '100%', width: '100%' }}>
+    
+    <div style={{
+
+  }} >
+    </div>
+    <Box id="map-container" style={{ height: '100%', width: '100%', zIndex: 1, color:'black' }} sx={{
+      borderRadius: "1rem",
+      boxShadow: "0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, .8)",
+    }} ></Box>
+     </div> 
+    );
 };
 
 export default Map;
