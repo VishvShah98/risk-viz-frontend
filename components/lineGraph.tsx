@@ -160,7 +160,7 @@ const LineChart = () => {
   return (
     <div style={{ position: 'relative' }}>
       <Typography>Climate Risk Rating Line Graph Over Time</Typography>
-      <select id="category-select" style={{ color: 'white', position: 'absolute', background: 'black', top: '4vh', right: '0vw' }} value={selectedCategory} onChange={handleCategoryChange}>
+      <select id="category-select" style={{ color: 'white', position: 'absolute', background: 'grey', top: '4vh', right: '0vw' }} value={selectedCategory} onChange={handleCategoryChange}>
         {categoryOptions}
       </select>
       <canvas ref={canvasRef} style={{
