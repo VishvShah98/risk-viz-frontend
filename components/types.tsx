@@ -18,7 +18,7 @@ export interface DataPoint {
     "Risk Rating Avg": number;
     "Risk Factors Avg": object;
     "Year": number;
-    data: any[]; // add a data property of type any[]
+    data: any[];
   }
 
   export interface Decade {

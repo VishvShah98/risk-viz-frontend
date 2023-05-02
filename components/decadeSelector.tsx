@@ -4,6 +4,7 @@ import { Decade } from "./types";
 
 // Create a component to select a decade
 function DecadeSelector() {
+
   // Declare the state variables for the selected decade and the list of available decades
   const [decades, setDecades] = useState<Decade[]>([]);
   const [selectedDecade, setSelectedDecade] = useState<number>(0);
@@ -13,14 +14,17 @@ function DecadeSelector() {
     const fetchData = async () => {
       try {
         const data = await getDecades();
+
         // Map the response data to the shape of the Decade object
         const mappedData = data.map((decade, index) => ({
           _id: `${index}`,
           Decade: decade,
         }));
+
         // Set the list of available decades and the initial selected decade state
         setDecades(mappedData);
         setSelectedDecade(mappedData[0].Decade);
+
       } catch (error) {
         console.log(error);
       }
@@ -31,12 +35,11 @@ function DecadeSelector() {
   // Handle the decade selection change event
   const handleSelect = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = parseInt(event.target.value);
+
     // Update the selected decade state and retrieve updated data
     setSelectedDecade(selected);
     try {
       await getDataByDecade(selected);
-      //console.log('updates',state.data);
-
     } catch (error) {
       console.log(error);
     }

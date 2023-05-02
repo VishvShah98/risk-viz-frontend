@@ -3,11 +3,16 @@ import state from '../state';
 import { useRef, useEffect, useState, useMemo } from 'react';
 import { useSnapshot } from 'valtio';
 import { ChartOptions } from 'chart.js';
+import { Typography } from '@mui/material';
 
 const LineChart = () => {
-  const labels = state.graphData[0].data.map((item: any) => item.Year);
-  //console.log('sg:',state.graphData);
+
   const snapshot = useSnapshot(state);
+
+  //labels gets the years for x-axis
+  const labels = state.graphData[0].data.map((item: any) => item.Year);
+
+  //set data for graph
   const datasets = state.graphData.map((item: any) => {
     return {
       label: item._id['Business Category'],
@@ -17,57 +22,62 @@ const LineChart = () => {
     };
   });
 
-
-
+  //select data for graph
   const [selectedCategory, setSelectedCategory] = useState(datasets[0].label);
   const selectedDataset = datasets.find((dataset: any) => dataset.label === selectedCategory);
 
-  // const data = useMemo(() => ({
-  //   labels: labels,
-  //   datasets: [selectedDataset], 
-  // }), [labels, selectedDataset]);
   const data = useMemo(() => ({
     labels: labels,
     datasets: selectedDataset ? [selectedDataset] : [],
   }), [labels, selectedDataset]);
 
-  // console.log('Data: ',data)
-
   const options: ChartOptions<'line'> = useMemo(() => ({
-
     scales: {
       x: {
-        display: true,
+        display: true,//display x-axis
         title: {
-          display: true,
-          text: 'Year',
-          align: 'center',
+          display: true,//display title
+          text: 'Year',//title text
+          align: 'center',//title alignment
           font: {
-            weight: 'bolder',
-            size: 12,
+            weight: 'bolder',//title font weight
+            size: 12,//title font size
           },
-          padding: 5,
-          fullSize: true,
+          padding: 5,//title padding
+          fullSize: true,//title full size
         },
       },
       y: {
-        display: true,
+        display: true,//display y-axis
         title: {
-          display: true,
-          text: 'Risk Rating',
-          align: 'center',
+          display: true,//display title
+          text: 'Risk Rating',//title text
+          align: 'center',//title alignment
           font: {
-            weight: 'bolder',
-            size: 12,
+            weight: 'bolder',//title font weight
+            size: 12,//title font size
           },
-          padding: 5,
-          fullSize: true,
+          padding: 5,//title padding
+          fullSize: true,//title full size
         }
       }
     },
+
     plugins: {
       tooltip: {
-        boxWidth: 1,
+        boxWidth: 1,//tooltip box width
+        backgroundColor: 'black', // Change the background color of the tooltip
+        titleFont: {
+          color: 'white', // Change the font color of the tooltip title
+          size: 14, // Change the font size of the tooltip title
+          weight: 'bold', // Change the font weight of the tooltip title
+        },
+        bodyFont: {
+          color: 'white', // Change the font color of the tooltip body
+          size: 12, // Change the font size of the tooltip body
+          weight: 'normal', // Change the font weight of the tooltip body
+        },
+        // Custom positioner function
         position: (context: any, event: any) => {
           const chart = context.chart;
           const positioner = chart?.tooltip?.getPositioner?.(context, event);
@@ -77,55 +87,50 @@ const LineChart = () => {
             return 'average';
           }
         },
+        // Custom tooltip function
         callbacks: {
           label: function (context: any) {
             const graphData = true;
             if (graphData) {
-              const riskFactorsAvg = state.graphData[context.datasetIndex].data[context.dataIndex]['Risk Factors Avg']
-              //console.log('riskFactorsAvg: ', riskFactorsAvg);
-              const firstKey = Object.keys(riskFactorsAvg)[0];
-              const firstValue = riskFactorsAvg[firstKey].toFixed(2);
-              const restOfRiskFactorsAvgString = Object.keys(riskFactorsAvg)
-                .slice(1)
-                .reduce((acc, cur) => (acc += `\n${cur}: ${riskFactorsAvg[cur].toFixed(2)};`), '');
+              const riskFactorsAvg = state.graphData[context.datasetIndex].data[context.dataIndex]['Risk Factors Avg'];
+              const sortedRiskFactorsKeys = Object.keys(riskFactorsAvg).sort((a, b) => riskFactorsAvg[b] - riskFactorsAvg[a]);
 
-              const riskFactorsAvgString = `${firstKey}: ${firstValue};${restOfRiskFactorsAvgString}`;
+              const riskFactorsAvgString = sortedRiskFactorsKeys
+                .map(key => `${key}: ${riskFactorsAvg[key].toFixed(2)}`)
+                .join('; ');
 
-              //console.log('riskFactorsAvgString: ', riskFactorsAvgString);
               return `Risk Factors: ${riskFactorsAvgString}`;
             } else {
               return '';
             }
           },
         },
-
       },
       title: {
-        display: true,
-        text: `Asset Name: ${snapshot.graphData[0]._id['Asset Name']}`,
-        color: 'black',
-        position: 'top',
-        align: 'center',
+        display: true,//display title
+        text: `Asset Name: ${snapshot.graphData[0]._id['Asset Name']}`,//title text
+        color: 'black',//title color
+        position: 'top',//title position
+        align: 'center',//title alignment
         font: {
-          weight: 'bolder',
-          size: 15,
+          weight: 'bolder',//title font weight
+          size: 15,//title font size
         },
-        padding: 5,
-        fullSize: true,
+        padding: 5,//title padding
+        fullSize: true,//title full size
       },
-
       legend: {
         display: false, // set display to false to hide the legend
       },
-
     },
-    backgroundColor: 'white',
-  }), [snapshot.graphData]);;
 
+    backgroundColor: 'white',
+
+  }), [snapshot.graphData]);
 
   const canvasRef = useRef(null);
 
-  //const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  //create chart
   useEffect(() => {
     if (!canvasRef.current) return console.log('no canvas ref');
     const chart = new Chart(canvasRef.current, {
@@ -138,10 +143,12 @@ const LineChart = () => {
     };
   }, [data, options]);
 
+  //handle change of category
   const handleCategoryChange = (event: any) => {
     setSelectedCategory(event.target.value);
   };
 
+  //dropdown menu for categories
   const categoryOptions = datasets.map((dataset: any) => {
     return (
       <option key={dataset.label} value={dataset.label}>
@@ -151,9 +158,9 @@ const LineChart = () => {
   });
 
   return (
-
     <div style={{ position: 'relative' }}>
-      <select id="category-select" style={{ color: 'white', position: 'absolute', background: 'darkgrey', top: '0vh', right: '0vw' }} value={selectedCategory} onChange={handleCategoryChange}>
+      <Typography>Climate Risk Rating Line Graph Over Time</Typography>
+      <select id="category-select" style={{ color: 'white', position: 'absolute', background: 'black', top: '4vh', right: '0vw' }} value={selectedCategory} onChange={handleCategoryChange}>
         {categoryOptions}
       </select>
       <canvas ref={canvasRef} style={{
@@ -164,7 +171,5 @@ const LineChart = () => {
     </div>
   );
 };
-
-
 
 export default LineChart;

@@ -2,8 +2,11 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import state from "../state";
 import { useSnapshot } from "valtio";
+
 export default function LandingPage() {
+
     const snapshot = useSnapshot(state);
+
     return (
         <Box
             sx={{
@@ -52,7 +55,6 @@ export default function LandingPage() {
                     fontSize: "15px",
                 }}
 
-                //navigate to data.tsx on click
                 onClick={() => {
                     const element = document.getElementById("main-content");
                     if (element instanceof HTMLElement) {
@@ -61,6 +63,7 @@ export default function LandingPage() {
                 }}
 
             >
+                {/* Check if data has loaded*/}
                 {snapshot.graphData.length > 0 ? "Explore Data" : "Loading Data..."}
             </button>
         </Box>
