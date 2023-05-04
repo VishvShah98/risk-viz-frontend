@@ -25,6 +25,9 @@ export default function Home() {
   //snapshot is used to watch the updates in state variables
   const snapshot = useSnapshot(state);
 
+  //duration of animation
+  const animationDuration=0.3;
+
   //toggleShowData is used to toggle(true or false) showData
   function toggleShowData() {
     setShowData(!showData);
@@ -115,7 +118,7 @@ export default function Home() {
                 top: showData ? 0 : '-25vh',
                 scale: showData ? 1 : 1.25,
               }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              transition={{ duration: animationDuration, ease: 'easeInOut' }}
               style={{
                 height: '50vh',
                 width: '45vw', backgroundColor: 'transparent', position: 'absolute',
@@ -136,7 +139,7 @@ export default function Home() {
                 y: showData ? '-25vh' : 0,
                 scale: showData ? 1 : 0,
               }}
-              transition={{ duration: 0.5, ease: 'easeIn' }}
+              transition={{ duration: animationDuration, ease: 'easeIn' }}
               style={{
                 height: '50vh', width: '45vw', backgroundColor: 'transparent', position: 'absolute',
                 top: 0,
@@ -165,7 +168,7 @@ export default function Home() {
                 y: showData ? '35vh' : 0,
                 scale: showData ? 1 : 0,
               }}
-              transition={{ duration: 0.5, ease: 'easeIn' }}
+              transition={{ duration: animationDuration, ease: 'easeIn' }}
             >
               <DataTable />
             </motion.div>
