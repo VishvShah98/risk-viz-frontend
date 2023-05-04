@@ -48,27 +48,37 @@ function DecadeSelector() {
   // Render the decade selection component
   return (
     <div className="text-black" style={{zIndex:3}}>
-      <label htmlFor="decade" style={{color:'white', marginRight:10, fontWeight:500}}>
-        Select a decade:
-      </label>
-      <select
-        id="decade"
-        className="text-black"
-        value={selectedDecade}
-        onChange={handleSelect}
-      >
-        {/* Map the available decades to option elements */}
-        {decades.map((decade, index) => {
-          const startDecade = decade.Decade;
-          const endDecade = startDecade + 10;
-          const decadeRange = `${startDecade} - ${endDecade}`;
-          return (
-            <option key={decade._id} value={decade.Decade} className="text-black">
-              {decadeRange}
-            </option>
-          );
-        })}
-      </select>
+     <label htmlFor="decade" style={{ color: 'white', marginRight: 10, fontWeight: 500 }}>
+    Select a decade:
+  </label>
+  <select
+    id="decade"
+    className="text-black"
+    value={selectedDecade}
+    onChange={handleSelect}
+    style={{
+      backgroundColor: 'white',
+      color: 'black',
+      borderRadius: '20px',
+      padding: '5px 10px',
+      fontWeight: 600,
+      border: '2px solid black',
+      outline: 'none',
+      cursor: 'pointer'
+    }}
+  >
+    {/* Map the available decades to option elements */}
+    {decades.map((decade, index) => {
+      const startDecade = decade.Decade;
+      const endDecade = startDecade + 10;
+      const decadeRange = `${startDecade} - ${endDecade}`;
+      return (
+        <option key={decade._id} value={decade.Decade} className="text-black">
+          {decadeRange}
+        </option>
+      );
+    })}
+  </select>
     </div>
   );
 }

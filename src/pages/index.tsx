@@ -83,7 +83,15 @@ export default function Home() {
             }}>
             <DecadeSelector />
             <button onClick={toggleShowData}
-              style={{ backgroundColor: 'white', color: 'black', borderRadius: '20px', padding: '5px 10px 5px 10px' , fontWeight:600}}>
+              style={{  backgroundColor: showData ? 'black' : 'white', 
+              color: showData ? 'white' : 'black', 
+              borderRadius: '20px', 
+              padding: '5px 10px', 
+              fontWeight: 600, 
+              border: '2px solid black',
+              transition: 'all 0.3s ease',
+              outline: 'none',
+              cursor: 'pointer'}}>
               {showData ? 'Hide Asset Data' : 'Show Asset Data'}
             </button>
           </div>
@@ -145,7 +153,7 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0 }}
               animate={{
                 opacity: showData ? 1 : 0,
-                y: showData ? '30vh' : 0,
+                y: showData ? '35vh' : 0,
                 scale: showData ? 1 : 0,
               }}
               transition={{ duration: 0.5, ease: 'easeIn' }}
