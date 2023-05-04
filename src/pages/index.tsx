@@ -13,8 +13,6 @@ import LandingPage from '../../components/landingPage';
 import { getDataByDecade, getDecades, getAggDataByAssetName } from './api';
 import state from '../../state';
 
-
-
 export default function Home() {
 
   //dataLoaded checks if data is loaded in order to render components
@@ -85,8 +83,8 @@ export default function Home() {
             }}>
             <DecadeSelector />
             <button onClick={toggleShowData}
-              style={{ backgroundColor: 'white', color: 'black', borderRadius: '20px', padding: '5px 10px 5px 10px' }}>
-              {showData ? 'Hide Data' : 'Show Data'}
+              style={{ backgroundColor: 'white', color: 'black', borderRadius: '20px', padding: '5px 10px 5px 10px' , fontWeight:600}}>
+              {showData ? 'Hide Asset Data' : 'Show Asset Data'}
             </button>
           </div>
 
@@ -160,6 +158,7 @@ export default function Home() {
       )}
     </>
   )
+
 }
 
 

@@ -57,7 +57,7 @@ function DataTable() {
       },
 
     }} >
-      <Typography>Climate Risk Rating Data Table for Selected Decade</Typography>
+      <Typography>Climate Risk Data Table for Selected Decade</Typography>
       <DataGrid
         sx={{ backgroundColor: 'white', color: 'black', borderRadius: "1rem" }}
         rows={rows}

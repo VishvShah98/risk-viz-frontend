@@ -48,7 +48,7 @@ function DecadeSelector() {
   // Render the decade selection component
   return (
     <div className="text-black" style={{zIndex:3}}>
-      <label htmlFor="decade" style={{color:'white', marginRight:10}}>
+      <label htmlFor="decade" style={{color:'white', marginRight:10, fontWeight:500}}>
         Select a decade:
       </label>
       <select

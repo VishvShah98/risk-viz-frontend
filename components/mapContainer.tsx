@@ -127,7 +127,7 @@ const Map = () => {
               'yellow',
               0.5,
               'orange',
-              0.75,
+              0.8,
               'red',
             ],
             'circle-radius': [
@@ -246,7 +246,7 @@ const Map = () => {
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      <Typography >Climate Risk Rating Map with Location Markers and Risk Indicators</Typography>
+      <Typography >Click Clusters to Expand and View Color-Coded Risk Indicators for Assets.</Typography>
       <Box id="map-container" style={{ height: '100%', width: '100%', zIndex: 1, color: 'black' }} sx={{
         borderRadius: "1rem",
         boxShadow: "0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, .8)",

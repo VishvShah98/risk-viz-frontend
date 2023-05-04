@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 body{
-    background-color: #3a3c47;
+    background-color: #1e2f61;
     color: white; 
  
 }
 
 canvas{
     width: 100% !important;
- 
 }
+  
+  
 
 
 
