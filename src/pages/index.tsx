@@ -26,7 +26,7 @@ export default function Home() {
   const snapshot = useSnapshot(state);
 
   //duration of animation
-  const animationDuration=0.3;
+  const animationDuration=0.5;
 
   //toggleShowData is used to toggle(true or false) showData
   function toggleShowData() {
