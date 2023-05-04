@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import React from 'react'
 import { motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
+import { Typography } from '@mui/material';
 
 import Map from '../../components/mapContainer';
 import LineChart from '../../components/lineGraph';
@@ -46,7 +47,7 @@ export default function Home() {
 
         //if there are more than 10 data points, get the aggregate data by asset name
         if (state.data.length > 10) {
-          
+
           //getAggDataByAssetName() returns an array of data points for each asset name
           await getAggDataByAssetName(state.data[0]["Asset Name"]);
         }
@@ -59,7 +60,7 @@ export default function Home() {
         console.log(error);
       }
     }
-    
+
     fetchData();
   }, []);
 
@@ -70,11 +71,16 @@ export default function Home() {
       <LandingPage />
 
       {/* Render components only if data is loaded */}
-      {dataLoaded && (<>
+      {dataLoaded && (<div id='main-content'>
 
         <div style={{ height: '100vh', width: '100%', marginTop: '2vh' }} className='font-inter'>
+          {/* <Typography variant='h5'
+        style={{ color: 'white', marginBottom: '2rem', fontWeight: 500, textAlign:'center'  }}
+      >
+      Interactive Map with Line Graph and Data Table toggle
+      </Typography> */}
           <div
-            id='main-content'
+
             style={{
               display: 'flex',
               justifyContent: 'space-evenly',
@@ -83,15 +89,18 @@ export default function Home() {
             }}>
             <DecadeSelector />
             <button onClick={toggleShowData}
-              style={{  backgroundColor: showData ? 'black' : 'white', 
-              color: showData ? 'white' : 'black', 
-              borderRadius: '20px', 
-              padding: '5px 10px', 
-              fontWeight: 600, 
-              border: '2px solid black',
-              transition: 'all 0.3s ease',
-              outline: 'none',
-              cursor: 'pointer'}}>
+              style={{
+                backgroundColor: showData ? 'darkgreen' : 'green',
+                filter: "brightness(1.5)",
+                color: 'white',
+                borderRadius: '20px',
+                padding: '5px 10px',
+                fontWeight: 400,
+                border: '2px solid black',
+                transition: 'all 0.3s ease',
+                outline: 'none',
+                cursor: 'pointer'
+              }}>
               {showData ? 'Hide Asset Data' : 'Show Asset Data'}
             </button>
           </div>
@@ -162,7 +171,7 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </>
+      </div>
       )}
     </>
   )

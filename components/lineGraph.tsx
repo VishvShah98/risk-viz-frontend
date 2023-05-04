@@ -159,13 +159,14 @@ const LineChart = () => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <Typography  style={{ color: 'white', marginBottom: '1rem', fontWeight: 500 }}>Climate Risk Rating Line Graph Over Time</Typography>
-      <select id="category-select" style={{ color: 'white', position: 'absolute', background: 'grey', top: '7vh', right: '0vw' }} value={selectedCategory} onChange={handleCategoryChange}>
+      <Typography style={{ color: 'white', marginBottom: '1rem', fontWeight: 500, textAlign: 'center' }}>Climate Risk Rating Line Graph Over Time</Typography>
+      <select id="category-select" style={{ color: 'white', position: 'absolute', background: 'grey', top: '7vh', right: '0vw', borderRadius: '1rem', textAlign: 'center' }} value={selectedCategory} onChange={handleCategoryChange}>
         {categoryOptions}
       </select>
       <canvas ref={canvasRef} style={{
-        backgroundColor: 'white', borderRadius: '10px'
-        , boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'white',
+        borderRadius: '1rem',
+        boxShadow: '0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, 0.8)',
         zIndex: 1,
       }}></canvas>
     </div>

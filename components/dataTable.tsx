@@ -10,7 +10,7 @@ function DataTable() {
   const [rows, setRows] = useState<Array<any>>([]);
   const { palette } = useTheme();
   const snapshot = useSnapshot(state);
-  
+
   //format risk factors
   function formatRiskFactors(riskFactorsStr: string): string {
     const riskFactors = JSON.parse(riskFactorsStr);
@@ -46,8 +46,8 @@ function DataTable() {
     <Box className="data-table" sx={{
       height: 400,
 
-      boxShadow: "0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, .8)",
-      '.MuiDataGrid-columnHeaderTitle': { fontSize: 15, fontWeight: 'bolder !important' },
+      // boxShadow: "0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, .8)",
+      // '.MuiDataGrid-columnHeaderTitle': { fontSize: 15, fontWeight: 'bolder !important' },
 
       "& .MuiDataGrid-cell": {
         borderBottom: `1px solid ${palette.grey[800]} !important`,
@@ -56,10 +56,14 @@ function DataTable() {
         borderBottom: `2px solid ${palette.grey[800]} !important`,
       },
 
+
     }} >
-      <Typography  style={{ color: 'white', marginBottom: '1rem', fontWeight: 500 }}>Climate Risk Data Table for Selected Decade</Typography>
+      <Typography style={{ color: 'white', marginBottom: '1rem', fontWeight: 500, textAlign: 'center' }}>Climate Risk Data Table for Selected Decade</Typography>
       <DataGrid
-        sx={{ backgroundColor: 'white', color: 'black', borderRadius: "1rem" }}
+        sx={{
+          backgroundColor: 'white', color: 'black', borderRadius: '1rem',
+          boxShadow: '0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0, 0.8)',
+        }}
         rows={rows}
         columns={columns}
         columnHeaderHeight={55}

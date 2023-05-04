@@ -247,9 +247,9 @@ const Map = () => {
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <Typography
-        style={{ color: 'white', marginBottom: '1rem', fontWeight: 500 }}
+        style={{ color: 'white', marginBottom: '1rem', fontWeight: 500, textAlign: 'center' }}
       >
-        Click clusters to expand and view color-coded risk indicators for assets.
+        Click Clusters to Expand and View Color-Coded Risk Indicators for Assets
       </Typography>
       <Box
         id="map-container"

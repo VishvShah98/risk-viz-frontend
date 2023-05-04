@@ -2,11 +2,17 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import state from "../state";
 import { useSnapshot } from "valtio";
+import { useEffect, useState } from "react";
 
 export default function LandingPage() {
 
     const snapshot = useSnapshot(state);
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        if (state.graphData.length > 0)
+            setLoading(false);
+    }, [snapshot.graphData]);
     return (
         <Box
             sx={{
@@ -25,7 +31,7 @@ export default function LandingPage() {
                 width={1000}
                 height={1000}
                 style={{
-                    filter: "brightness(0.6)",
+                    filter: "brightness(0.5)",
                     position: "fixed",
                     zIndex: -1,
                     height: "100vh",
@@ -49,10 +55,15 @@ export default function LandingPage() {
             <button
                 style={{
                     borderRadius: "20px",
-                    color: "black",
-                    backgroundColor: "white",
-                    padding: "10px 20px 10px 20px",
+                    color: "white",
+                    backgroundColor: loading ? "darkgreen" : "green",
+                    padding: "10px 20px",
                     fontSize: "15px",
+                    border: "none",
+                    outline: "none",
+                    cursor: "pointer",
+                    boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16)",
+                    transition: "all 0.3s ease",
                 }}
 
                 onClick={() => {
@@ -64,8 +75,9 @@ export default function LandingPage() {
 
             >
                 {/* Check if data has loaded*/}
-                {snapshot.graphData.length > 0 ? "Explore Data" : "Loading Data..."}
+                {loading ? "Loading Data..." : "Explore Data"}
             </button>
+
         </Box>
     );
 }
