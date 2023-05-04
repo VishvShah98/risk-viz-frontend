@@ -30,7 +30,7 @@ const Map = () => {
       mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
       const mapInstance = new mapboxgl.Map({
         container: 'map-container',
-        style: 'mapbox://styles/mapbox/streets-v12',
+        style: 'mapbox://styles/mapbox/satellite-streets-v12',
         center: [-95.7129, 37.0902],
         zoom: 1.5,
         dragPan: true,
