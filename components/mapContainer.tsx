@@ -38,6 +38,7 @@ const Map = () => {
       });
       mapInstance.addControl(new mapboxgl.NavigationControl());
 
+      
       mapInstance.on('load', () => {
         // console.log('Map loaded');
         setMap(mapInstance);
